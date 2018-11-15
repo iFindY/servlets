@@ -1,0 +1,37 @@
+plugins {
+    id 'war'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile group: 'javax', name: 'javaee-api', version: '7.0'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/java']
+        }
+    }
+    resources {
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+}
+
+
+task myWar(type: War) {
+    into('WEB-INF') {
+        from(sourceSets.resources.resources.files) {
+            include('web.xml')
+        }
+    }
+    from(sourceSets.resources.resources.files) {
+        include('Register.html')
+    }
+}
